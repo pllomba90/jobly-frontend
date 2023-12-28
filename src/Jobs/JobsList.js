@@ -21,7 +21,6 @@ const JobsList = () =>{
   
     return (
       <div>
-        <Navigation />
        <div >
           {jobs.map((job) => (
             <div key={job.id}>

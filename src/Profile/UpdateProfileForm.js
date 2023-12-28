@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Button, Card, CardText, CardTitle, Col, Form, FormGroup, Label, Input } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { handleInputChange } from "../helpers/formHelpers";
+import JoblyApi from "../helpers/API";
 
-const Signup = ({ signup }) => {
+const UpdateProfileForm = () => {
   const initialState = {
     firstName: "",
     lastName: "",
@@ -13,16 +14,16 @@ const Signup = ({ signup }) => {
   };
 
   const [formData, setFormData] = useState(initialState);
-
+  const user = useParams()
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let result = await signup(formData);
+    let result = await JoblyApi.updateProfile(user, formData);
     if (result.success) {
-      navigate("/jobs");
+      navigate("/users/:username");
     } else {
-      navigate("/signup");
+      navigate("/");
     }
   };
 
@@ -104,5 +105,5 @@ const Signup = ({ signup }) => {
   );
 };
 
-export default Signup;
+export default UpdateProfileForm;
 

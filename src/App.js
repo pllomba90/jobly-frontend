@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import JoblyApi from './helpers/API';
 import Navbar from './Nav/Navbar';
 import UserContext from "./helpers/UserContext";
@@ -42,8 +42,11 @@ function App() {
 
   async function signup(signupData) {
     try {
-      let token = await JoblyApi.signup(signupData);
+      let token = await JoblyApi.registerUser(signupData);
       setToken(token);
+      let user = await JoblyApi.getCurrentUser(signupData.username);
+      setCurrentUser(user);
+    setCurrentUser(currentUser);
       return { success: true };
     } catch (errors) {
       console.error("signup failed", errors);
@@ -53,8 +56,10 @@ function App() {
 
   async function login(loginData) {
     try {
-      let token = await JoblyApi.login(loginData);
+      let token = await JoblyApi.loginUser(loginData);
       setToken(token);
+      let user = await JoblyApi.getCurrentUser(loginData.username);
+    setCurrentUser(user);
       return { success: true };
     } catch (errors) {
       console.error("login failed", errors);
@@ -73,6 +78,7 @@ function App() {
   }
 
   return (
+
     <BrowserRouter>
       <UserContext.Provider value={{ currentUser, setCurrentUser, hasAppliedToJob, applyToJob }}>
         <div className="App">

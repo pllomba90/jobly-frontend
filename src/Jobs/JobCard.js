@@ -2,12 +2,13 @@ import React from "react";
 import { Card, CardBody, CardTitle, CardText} from "reactstrap";
 
 const JobCard = ({job}) => {
-    <Card>
+  
+    return (  <Card>
     <CardBody>
       <CardTitle tag="h5">{job.title}</CardTitle>
       <CardText>{job.salary}</CardText>
     </CardBody>
-  </Card>
+  </Card>)
 }
 
 export default JobCard;

@@ -25,6 +25,7 @@ class JoblyApi {
   }
     try {
       const response = await axios(axiosConfig);
+      console.log(url)
       return response.data;
     } catch (err) {
       console.error("API Error:", err.response);
@@ -44,6 +45,7 @@ class JoblyApi {
   
   static async getCompanies() {
     const res = await JoblyApi.request("companies", {}, "get");
+
     return res.companies;
   }
 
@@ -85,11 +87,17 @@ class JoblyApi {
     let res = await this.request(`users/${username}`, data, "patch");
     return res.user;
   }
+
+  static async getCurrentUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
 }
 
 // for now, put token ("testuser" / "password" on class)
-JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-    "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-    "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
+// JoblyApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
+//     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
+//     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
 export default JoblyApi;

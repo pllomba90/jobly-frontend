@@ -7,12 +7,15 @@ import "./Companies.css"
 
 const Companies = () => {
   const [companies, setCompanies] = useState([]);
-
+  console.log("component render")
   useEffect(() => {
     async function fetchData() {
+      console.log("fetching")
       try {
         const response = await JoblyApi.getCompanies();
+        console.log(response)
         setCompanies(response);
+       
       } catch (error) {
         console.error("Error fetching companies:", error);
       }

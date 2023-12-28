@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import UserContext from "../helpers/UserContext"
 
 
@@ -12,15 +12,8 @@ function PrivateRoute({ exact, path, children }) {
       "path=", path,
       "currentUser=", currentUser,
   );
-
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
-
   return (
-      <Route exact={exact} path={path}>
-        {children}
-      </Route>
+      currentUser ? <Outlet/> : <Navigate to="/login" />
   );
 }
 

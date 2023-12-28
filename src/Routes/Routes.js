@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import Home from "../Home/Home";
 import Login from "../Verification/Login";
 import Signup from "../Verification/Signup";
@@ -7,29 +7,30 @@ import Companies from "../Companies/Companies";
 import JobsList from "../Jobs/JobsList";
 import CompanyDetail from "../Companies/CompanyDetail";
 import PrivateRoute from "./PrivateRoute";
+import Profile from "../Profile/Profile";
 
 const AppRoutes = ({ login, signup }) => {
 
   console.debug(
     "Routes",
     `login=${typeof login}`,
-    `register=${typeof register}`,
+    `signup=${typeof signup}`,
 );
 
 
 
   return (
-    <Router>
       <Routes>
         <Route exact path="/" element={<Home />}/>
         <Route exact path="/login" element={<Login login={login}/>} />
         <Route exact path="/signup" element={<Signup signup={signup}/>} />
-        <PrivateRoute> exact path="/companies" element={<Companies />} </PrivateRoute>
-        <PrivateRoute> exact path="/companies/:handle" element={<CompanyDetail />} </PrivateRoute>
-        <PrivateRoute> exact path="/jobs" element={<JobsList />} </PrivateRoute>
-        <PrivateRoute> exact path="/users/:username" element={<Signup />} </PrivateRoute>
+        <Route element={<PrivateRoute/>}>
+          <Route element={<Companies/>} path="/companies" exact />
+          <Route exact path="/companies/:handle" element={ <CompanyDetail />}/>
+          <Route exact path="/jobs" element={<JobsList />}/>
+          <Route exact path="/users/:username" element={<Profile /> } />
+        </Route>
       </Routes>
-    </Router>
   );
 };
 
